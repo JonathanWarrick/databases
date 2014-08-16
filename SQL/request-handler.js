@@ -1,5 +1,5 @@
-var db = require('./db');
-var serverHelpers = require('./server-helpers');
+var db = require('./db.js');
+var serverHelpers = require('./server-helpers.js');
 // wham! magic.
 var parseData = serverHelpers.collectData;
 var saveMessage = db.saveMessage;
@@ -11,6 +11,7 @@ var findUser = db.findUser;
 exports.postMessage = function(req, res) {
   // declare this variable so we can retain access to it throughout the entire promise chain.
   var message;
+  console.log('var message inside postMessage: ', message);
 
   var resultsCallback = function (results) {
       var chat = {
@@ -23,6 +24,8 @@ exports.postMessage = function(req, res) {
         serverHelpers.sendResponse(res, message);
       });
   };
+
+  console.log('made it past resultsCallback');
 
   parseData(req, function(_, msg) {
       message = msg;
@@ -41,7 +44,7 @@ exports.postMessage = function(req, res) {
 
 exports.getMessages = function(req, res) {
   findMessages(function(err, messages) {
-      serverHelpers.sendResponse(res, messages);
+    serverHelpers.sendResponse(res, messages);
   });
 };
 

@@ -20,6 +20,8 @@ exports.sendResponse = function(response, obj, status){
   status = status || 200;
   response.writeHead(status, headers);
   var string = JSON.stringify(obj);
+  console.log('string is', string);
+  console.log("send response called");
   console.log("Sending: %s", string);
   response.end(string);
 };
